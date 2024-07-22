@@ -11,18 +11,90 @@
             background-color: black;
             color: white;
             margin: 0;
-            padding: 20px;
+        }
+        .hero-section {
+            height: 730px;
+            max-height: 730px;
+            background-image: url('https://newsabalita.wordpress.com/wp-content/uploads/2024/07/arn_theme_bg.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: visible;
+            margin-bottom: 48px;
+        }
+        .hero-container {
+            max-width: 1296px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        .logo {
+            width: 471px;
+            max-width: 90%;
+            height: auto;
+            margin-bottom: 20px;
+            position: absolute;
+            margin-top: 48px;
+        }
+        .headline {
+            font-size: 38px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            margin-top: 256px;
+            max-width: 800px;
+        }
+        .bottom-image {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: none;
+            height: auto;
+        }
+        .nominate-button-container {
+            position: absolute;
+            left: 50%;
+            bottom: -40px; /* Half the height of the button */
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        .nominate-button {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 600;
+            background: linear-gradient(to right, #1d4c7f, #102133);
+            color: #ffe8ae;
+            padding: 15px 30px;
+            letter-spacing: 4px;
+            font-size: 24px;
+            border:2px solid #ffe8ae;
+            border-radius: 9999px; /* Maxed out round corners */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
         }
         .container {
             max-width: 1296px;
             margin: 0 auto;
+            padding: 20px;
         }
         .video-section {
             display: flex;
             align-items: stretch;
             max-width: 1296px;
             margin: 0 auto;
-            margin-bottom: 56px;
+            padding: 20px;
         }
 
         .video-container {
@@ -94,7 +166,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.5);
+            box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.7);
         }
         .award-option[award="Creativity"] {
             background-image: url('https://newsabalita.wordpress.com/wp-content/uploads/2024/07/op1_inactive.png');
@@ -113,7 +185,7 @@
         }
         .award-option.selected {
             color: #ffd48a;
-            box-shadow: inset 0 0 16px rgba(255,212,138,0.5);
+            box-shadow: inset 0 0 24px rgba(255,212,138,0.5);
             border: 1px solid #ffd48a;
         }
         .award-option.selected[award="Creativity"] {
@@ -248,10 +320,27 @@
         .award-option {
             font-size: 18px;
         }
+        .logo {
+            top: 10px;
+        }
+        .headline {
+            font-size: 32px;
+            margin-top: 240px;
+        }
         }
     </style>
 </head>
 <body>
+    <section class="hero-section">
+        <div class="hero-container">
+            <img src="https://newsabalita.wordpress.com/wp-content/uploads/2024/07/arn-logo.png" alt="ARN Awards Logo" class="logo">
+            <h1 class="headline">Nominate LEADER: Pioneering Innovation in Distribution Excellence</h1>
+        </div>
+        <img src="https://newsabalita.wordpress.com/wp-content/uploads/2024/07/leader_bldg.png" alt="Leader Building" class="bottom-image">
+        <div class="nominate-button-container">
+            <button class="nominate-button" id="nominateButton"><span>NOMINATE LEADER</span></button>
+        </div>
+    </section>
     <section class="video-section">
         <div class="video-container">
             <div class="video-wrapper">
@@ -353,6 +442,11 @@
                 // ... other form fields
             });
             alert('Nomination submitted successfully!');
+        });
+
+        document.getElementById('nominateButton').addEventListener('click', function() {
+            const awardOptionsSection = document.querySelector('.award-options');
+            awardOptionsSection.scrollIntoView({ behavior: 'smooth' });
         });
 
     </script>
