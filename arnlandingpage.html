@@ -53,21 +53,6 @@
             margin-top: 256px;
             max-width: 800px;
         }
-        .bottom-image {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            max-width: none;
-            height: auto;
-        }
-        .nominate-button-container {
-            position: absolute;
-            left: 50%;
-            bottom: -40px; /* Half the height of the button */
-            transform: translateX(-50%);
-            z-index: 10;
-        }
         .nominate-button {
             font-family: 'Work Sans', sans-serif;
             font-weight: 600;
@@ -322,10 +307,11 @@
         }
         .logo {
             top: 10px;
+            max-width: 80%;
         }
         .headline {
             font-size: 32px;
-            margin-top: 240px;
+            margin-top: 216px;
         }
         }
     </style>
@@ -335,9 +321,6 @@
         <div class="hero-container">
             <img src="https://newsabalita.wordpress.com/wp-content/uploads/2024/07/arn-logo.png" alt="ARN Awards Logo" class="logo">
             <h1 class="headline">Nominate LEADER: Pioneering Innovation in Distribution Excellence</h1>
-        </div>
-        <img src="https://newsabalita.wordpress.com/wp-content/uploads/2024/07/leader_bldg.png" alt="Leader Building" class="bottom-image">
-        <div class="nominate-button-container">
             <button class="nominate-button" id="nominateButton"><span>NOMINATE LEADER</span></button>
         </div>
     </section>
@@ -436,10 +419,9 @@
                 alert('Please select an award category.');
                 return;
             }
-            // Here you would typically send the form data to your server
+            // send the form data to server
             console.log('Form submitted:', {
                 award: selectedAward.dataset.award,
-                // ... other form fields
             });
             alert('Nomination submitted successfully!');
         });
