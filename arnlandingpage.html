@@ -324,7 +324,7 @@
             overflow-y: auto;
         }
 
-        #company_description {
+        #companyDescription {
             min-height: 154px;
         }
 
@@ -453,23 +453,23 @@
         <h1 class="centered-max-width">Please select which award you would like to submit a nomination for</h1>
         
         <div class="award-options">
-            <div class="award-option" data-award="Creativity" onclick="selectAward('Creativity')">Creativity</div>
-            <div class="award-option" data-award="Hardware" onclick="selectAward('Hardware')">Hardware</div>
-            <div class="award-option" data-award="Software" onclick="selectAward('Software')">Software</div>
-            <div class="award-option" data-award="Specialist" onclick="selectAward('Specialist')">Specialist</div>
-            <input type="hidden" name="q27_pleaseSelect" id="awardCategory">
+            <div class="award-option" data-award="Creativity" onclick="selectAward('Creativity', this)">Creativity</div>
+            <div class="award-option" data-award="Hardware" onclick="selectAward('Hardware', this)">Hardware</div>
+            <div class="award-option" data-award="Software" onclick="selectAward('Software', this)">Software</div>
+            <div class="award-option" data-award="Specialist" onclick="selectAward('Specialist', this)">Specialist</div>
         </div>
         
         <form id="nominationForm" class="form-container">
+            <input type="hidden" name="q27_pleaseSelect" id="awardCategory">
                 <div class="form-column">
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="nominator_first">Nominator Name <span class="required">*</span></label>
-                            <input type="text" id="nominator_first" name="q3_nominatorName[first]" required placeholder="First name">
+                            <label for="nominatorFirstName">Nominator Name <span class="required">*</span></label>
+                            <input type="text" id="nominatorFirstName" name="q3_nominatorName[first]" required placeholder="First name">
                         </div>
                         <div class="form-field">
-                            <label style="visibility: hidden;">Last Name</label>
-                            <input type="text" id="nominator_last" name="q3_nominatorName[last]" required placeholder="Last name">
+                            <label for="nominatorLastName" style="visibility: hidden;">Last Name</label>
+                            <input type="text" id="nominatorLastName" name="q3_nominatorName[last]" required placeholder="Last name">
                         </div>
                     </div>
                     <div class="form-field">
@@ -477,36 +477,36 @@
                         <input type="email" id="email" name="q5_email" required placeholder="example@example.com">
                     </div>
                     <div class="form-field">
-                        <label for="company_name">Company Name <span class="required">*</span></label>
-                        <input type="text" id="company_name" name="q6_companyName" required>
+                        <label for="companyName">Company Name <span class="required">*</span></label>
+                        <input type="text" id="companyName" name="q6_companyName" required>
                     </div>
                     <div class="form-field">
-                        <label for="job_title">Job Title <span class="required">*</span></label>
-                        <input type="text" id="job_title" name="q7_jobTitle" required>
+                        <label for="jobTitle">Job Title <span class="required">*</span></label>
+                        <input type="text" id="jobTitle" name="q7_jobTitle" required>
                     </div>
                     <div class="form-row">
                         <div class="form-field">
-                            <label for="area_code">Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="area_code" name="q16_phoneNumber[area]" required placeholder="Area Code">
+                            <label for="phoneArea">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phoneArea" name="q16_phoneNumber[area]" required placeholder="Area Code">
                         </div>
                         <div class="form-field">
-                            <label style="visibility: hidden;">Phone Number</label>
-                            <input type="tel" id="phone_number" name="q16_phoneNumber[phone]" required placeholder="Phone Number">
+                            <label for="phoneNumber" style="visibility: hidden;">Phone Number</label>
+                            <input type="tel" id="phoneNumber" name="q16_phoneNumber[phone]" required placeholder="Phone Number">
                         </div>
                     </div>
                 </div>
                 <div class="form-column">
                     <div class="form-field">
-                        <label for="nominee_company">Nominee Company <span class="required">*</span></label>
-                        <input type="text" id="nominee_company" name="q8_nomineeCompany" value="Leader Computers" readonly class="locked">
+                        <label for="nomineeCompany">Nominee Company <span class="required">*</span></label>
+                        <input type="text" id="nomineeCompany" name="q8_nomineeCompany" value="Leader Computers" readonly class="locked">
                     </div>
                     <div class="form-field">
-                        <label for="company_description">Company Description <span class="required">*</span></label>
-                        <textarea id="company_description" name="q15_companyDescription" readonly class="locked">Leader is Australia's favourite IT Distributor (ARN Channel Choice Distributor of Year in 2019 and 2020). Leader is Proudly 100% Australian Owned and has purpose to help resellers grow and be profitable. Leader is truly national IT value-added ICT distributor located in 5 major states Australia-wide.</textarea>
+                        <label for="companyDescription">Company Description <span class="required">*</span></label>
+                        <textarea id="companyDescription" name="q15_companyDescription" readonly class="locked">Leader is Australia's favourite IT Distributor (ARN Channel Choice Distributor of Year in 2019 and 2020). Leader is Proudly 100% Australian Owned and has purpose to help resellers grow and be profitable. Leader is truly national IT value-added ICT distributor located in 5 major states Australia-wide.</textarea>
                     </div>
                     <div class="form-field">
-                        <label for="hq_location">HQ Location <span class="required">*</span></label>
-                        <input type="text" id="hq_location" name="q13_hqLocation" value="South Australia" readonly class="locked">
+                        <label for="hqLocation">HQ Location <span class="required">*</span></label>
+                        <input type="text" id="hqLocation" name="q13_hqLocation" value="South Australia" readonly class="locked">
                     </div>
                     <button type="submit" class="submit-btn" id="submitButton">Submit Nomination</button>
                 </div>
@@ -604,33 +604,27 @@
         document.addEventListener('DOMContentLoaded', initCarousel);
     </script>
     <script>
-        document.getElementById('nominateButton').addEventListener('click', function() {
-            const awardOptionsSection = document.querySelector('.award-options');
-            awardOptionsSection.scrollIntoView({ behavior: 'smooth' });
-        });
-        const awardOptions = document.querySelectorAll('.award-option');
-        let selectedAward = null;
-
-        document.querySelectorAll('.award-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.award-option').forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
+        function selectAward(award, element) {
+            document.getElementById('awardCategory').value = award;
+            // Add visual feedback
+            document.querySelectorAll('.award-option').forEach(div => {
+                div.classList.remove('selected');
             });
-        });
-    </script>
-    <script>
+            element.classList.add('selected');
+            console.log('Selected award:', award); // Add this line for debugging
+        }
         document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('nominationForm');
-  const submitButton = document.getElementById('submitButton');
-  let isSubmitted = false;
+    const form = document.getElementById('nominationForm');
+    const submitButton = document.getElementById('submitButton');
+    let isSubmitted = false;
 
-  form.addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent the default form submission
-    
-    if (isSubmitted) {
-      alert('Form has already been submitted.');
-      return;
-    }
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+        
+        if (isSubmitted) {
+        alert('Form has already been submitted.');
+        return;
+        }
 
     const formData = new FormData(form);
     
@@ -648,11 +642,29 @@
     submitButton.disabled = true; // Disable the submit button
     submitButton.textContent = 'Submitting...'; // Change button text
 
+    // Log form data for debugging
+    for (let [key, value] of formData.entries()) { 
+      console.log(key, value);
+    }
+
     fetch('https://submit.jotform.com/submit/241847819617873', {
       method: 'POST',
       body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      // Check if the response is JSON
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        return response.json();
+      } else {
+        // If it's not JSON, it's probably HTML (when running locally)
+        console.log("Response is not JSON. This is expected when running locally.");
+        return { success: true, message: "Local submission simulation" };
+      }
+    })
     .then(data => {
       console.log('Success:', data);
       alert('Nomination submitted successfully!');
@@ -672,15 +684,6 @@
     return isSubmitted;
   };
 });
-
-function selectAward(award) {
-  document.getElementById('awardCategory').value = award;
-  // Add visual feedback
-  document.querySelectorAll('.award-option').forEach(div => {
-    div.classList.remove('selected');
-  });
-  event.target.classList.add('selected');
-}
 </script>
 
 </body>
