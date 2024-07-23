@@ -81,7 +81,9 @@
             padding: 3rem 0;
             margin-top: -189px;
             z-index: 1;
-            position: absolute;
+            position: relative;
+            width: 100%;
+            overflow: hidden; 
         }
 
         .carousel-container {
@@ -91,17 +93,10 @@
             overflow: hidden;
         }
 
-        .carousel-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .carousel-container:active {
-            cursor: grabbing;
-        }
-
         .carousel-track {
             display: flex;
-            animation: scroll 120s linear infinite;
+            animation: scroll linear infinite;
+            width: fit-content; /* Added to ensure the track fits its content */
         }
 
         @keyframes scroll {
@@ -178,7 +173,6 @@
             max-width: 1296px;
             margin: 0 auto;
             padding: 20px;
-            margin-top: 132px;
         }
 
         .video-container {
@@ -359,6 +353,10 @@
             background-color: #0e4d94;
         }
         @media (max-width: 1296px) {
+        .testimonial-carousel {
+        margin-top: -150px; /* Adjusted for smaller screens */
+        }
+        
         .video-section {
             flex-direction: column;
             max-width: 800px;
@@ -376,6 +374,10 @@
         }
         }
         @media (max-width: 768px) {
+        .testimonial-carousel {
+            margin-top: -100px; /* Further adjusted for mobile screens */
+        }
+
         .award-options {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -580,11 +582,23 @@
 
         function initCarousel() {
             const carouselTrack = document.querySelector('.carousel-track');
-            const doubledTestimonials = testimonials.concat(testimonials);
-            
-            doubledTestimonials.forEach((testimonial) => {
+            const totalWidth = testimonials.length * (300 + 24); // 300px width + 24px gap per card
+
+            // Create all testimonial cards
+            testimonials.forEach((testimonial) => {
                 carouselTrack.innerHTML += createTestimonialCard(testimonial.name, testimonial.text);
             });
+
+            // Clone the cards to create a seamless loop
+            const cards = carouselTrack.innerHTML;
+            carouselTrack.innerHTML = cards + cards;
+
+            // Set the width of the track
+            carouselTrack.style.width = `${totalWidth * 2}px`;
+
+            // Set the animation duration based on the total width
+            const duration = totalWidth / 50; // Adjust 50 to change speed (lower = faster)
+            carouselTrack.style.animationDuration = `${duration}s`;
         }
 
         document.addEventListener('DOMContentLoaded', initCarousel);
