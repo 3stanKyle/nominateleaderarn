@@ -246,16 +246,16 @@
             background-repeat: no-repeat;
             box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.7);
         }
-        .award-option[award="Creativity"] {
+        .award-option[data-award="Creativity"] {
             background-image: url('https://newsabalita.wordpress.com/wp-content/uploads/2024/07/op1_inactive.png');
         }
-        .award-option[award="Hardware"] {
+        .award-option[data-award="Hardware"] {
             background-image: url('https://newsabalita.wordpress.com/wp-content/uploads/2024/07/op2_inactive.png');
         }
-        .award-option[award="Software"] {
+        .award-option[data-award="Software"] {
             background-image: url('https://newsabalita.wordpress.com/wp-content/uploads/2024/07/op3_inactive.png');
         }
-        .award-option[award="Specialist"] {
+        .award-option[data-award="Specialist"] {
             background-image: url('https://newsabalita.wordpress.com/wp-content/uploads/2024/07/op4_inactive.png');
         }
         .award-option:hover {
@@ -266,19 +266,19 @@
             box-shadow: inset 0 0 24px rgba(255,212,138,0.5);
             border: 1px solid #ffd48a;
         }
-        .award-option.selected[award="Creativity"] {
+        .award-option.selected[data-award="Creativity"] {
             background-image: url('https://newsabalita.wordpress.com/wp-content/uploads/2024/07/op1_active.png');
         }
 
-        .award-option.selected[award="Hardware"] {
+        .award-option.selected[data-award="Hardware"] {
             background-image: url('https://newsabalita.wordpress.com/wp-content/uploads/2024/07/op2_active.png');
         }
 
-        .award-option.selected[award="Software"] {
+        .award-option.selected[data-award="Software"] {
             background-image: url('https://newsabalita.wordpress.com/wp-content/uploads/2024/07/op3_active.png');
         }
 
-        .award-option.selected[award="Specialist"] {
+        .award-option.selected[data-award="Specialist"] {
             background-image: url('https://newsabalita.wordpress.com/wp-content/uploads/2024/07/op4_active.png');
         }
         .form-container {
@@ -453,66 +453,66 @@
         <h1 class="centered-max-width">Please select which award you would like to submit a nomination for</h1>
         
         <div class="award-options">
-            <div class="award-option" award="Creativity">Creativity</div>
-            <div class="award-option" award="Hardware">Hardware</div>
-            <div class="award-option" award="Software">Software</div>
-            <div class="award-option" award="Specialist">Specialist</div>
+            <div class="award-option" data-award="Creativity" onclick="selectAward('Creativity')">Creativity</div>
+            <div class="award-option" data-award="Hardware" onclick="selectAward('Hardware')">Hardware</div>
+            <div class="award-option" data-award="Software" onclick="selectAward('Software')">Software</div>
+            <div class="award-option" data-award="Specialist" onclick="selectAward('Specialist')">Specialist</div>
+            <input type="hidden" name="q27_pleaseSelect" id="awardCategory">
         </div>
         
-        <form id="nominationForm">
-            <div class="form-container">
+        <form id="nominationForm" class="form-container">
                 <div class="form-column">
                     <div class="form-row">
                         <div class="form-field">
                             <label for="nominator_first">Nominator Name <span class="required">*</span></label>
-                            <input type="text" id="nominator_first" name="nominator_first" required placeholder="First name">
+                            <input type="text" id="nominator_first" name="q3_nominatorName[first]" required placeholder="First name">
                         </div>
                         <div class="form-field">
                             <label style="visibility: hidden;">Last Name</label>
-                            <input type="text" id="nominator_last" name="nominator_last" required placeholder="Last name">
+                            <input type="text" id="nominator_last" name="q3_nominatorName[last]" required placeholder="Last name">
                         </div>
                     </div>
                     <div class="form-field">
                         <label for="email">Email <span class="required">*</span></label>
-                        <input type="email" id="email" name="email" required placeholder="example@example.com">
+                        <input type="email" id="email" name="q5_email" required placeholder="example@example.com">
                     </div>
                     <div class="form-field">
                         <label for="company_name">Company Name <span class="required">*</span></label>
-                        <input type="text" id="company_name" name="company_name" required>
+                        <input type="text" id="company_name" name="q6_companyName" required>
                     </div>
                     <div class="form-field">
                         <label for="job_title">Job Title <span class="required">*</span></label>
-                        <input type="text" id="job_title" name="job_title" required>
+                        <input type="text" id="job_title" name="q7_jobTitle" required>
                     </div>
                     <div class="form-row">
                         <div class="form-field">
                             <label for="area_code">Phone Number <span class="required">*</span></label>
-                            <input type="text" id="area_code" name="area_code" required placeholder="Area Code">
+                            <input type="tel" id="area_code" name="q16_phoneNumber[area]" required placeholder="Area Code">
                         </div>
                         <div class="form-field">
                             <label style="visibility: hidden;">Phone Number</label>
-                            <input type="tel" id="phone_number" name="phone_number" required placeholder="Phone Number">
+                            <input type="tel" id="phone_number" name="q16_phoneNumber[phone]" required placeholder="Phone Number">
                         </div>
                     </div>
                 </div>
                 <div class="form-column">
                     <div class="form-field">
                         <label for="nominee_company">Nominee Company <span class="required">*</span></label>
-                        <input type="text" id="nominee_company" name="nominee_company" value="Leader Computers" readonly class="locked">
+                        <input type="text" id="nominee_company" name="q8_nomineeCompany" value="Leader Computers" readonly class="locked">
                     </div>
                     <div class="form-field">
                         <label for="company_description">Company Description <span class="required">*</span></label>
-                        <textarea id="company_description" name="company_description" readonly class="locked">Leader is Australia's favourite IT Distributor (ARN Channel Choice Distributor of Year in 2019 and 2020). Leader is Proudly 100% Australian Owned and has purpose to help resellers grow and be profitable. Leader is truly national IT value-added ICT distributor located in 5 major states Australia-wide.</textarea>
+                        <textarea id="company_description" name="q15_companyDescription" readonly class="locked">Leader is Australia's favourite IT Distributor (ARN Channel Choice Distributor of Year in 2019 and 2020). Leader is Proudly 100% Australian Owned and has purpose to help resellers grow and be profitable. Leader is truly national IT value-added ICT distributor located in 5 major states Australia-wide.</textarea>
                     </div>
                     <div class="form-field">
                         <label for="hq_location">HQ Location <span class="required">*</span></label>
-                        <input type="text" id="hq_location" name="hq_location" value="South Australia" readonly class="locked">
+                        <input type="text" id="hq_location" name="q13_hqLocation" value="South Australia" readonly class="locked">
                     </div>
-                    <button type="submit" class="submit-btn">Submit Nomination</button>
+                    <button type="submit" class="submit-btn" id="submitButton">Submit Nomination</button>
                 </div>
-            </div>
         </form>
     </div>
+
     <script>
         const testimonials = [
     {
@@ -550,7 +550,7 @@
         name: 'Olivia Brown',
         text: 'The team at Leader is simply the best! They have always provided us with quality products and exceptional support. I can’t imagine working with anyone else!'
       }
-];
+    ];
 
         function createStarIcon() {
             return `
@@ -604,6 +604,10 @@
         document.addEventListener('DOMContentLoaded', initCarousel);
     </script>
     <script>
+        document.getElementById('nominateButton').addEventListener('click', function() {
+            const awardOptionsSection = document.querySelector('.award-options');
+            awardOptionsSection.scrollIntoView({ behavior: 'smooth' });
+        });
         const awardOptions = document.querySelectorAll('.award-option');
         let selectedAward = null;
 
@@ -613,25 +617,71 @@
                 this.classList.add('selected');
             });
         });
-
-        document.getElementById('nominationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (!selectedAward) {
-                alert('Please select an award category.');
-                return;
-            }
-            // send the form data to server
-            console.log('Form submitted:', {
-                award: selectedAward.dataset.award,
-            });
-            alert('Nomination submitted successfully!');
-        });
-
-        document.getElementById('nominateButton').addEventListener('click', function() {
-            const awardOptionsSection = document.querySelector('.award-options');
-            awardOptionsSection.scrollIntoView({ behavior: 'smooth' });
-        });
-
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('nominationForm');
+  const submitButton = document.getElementById('submitButton');
+  let isSubmitted = false;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent the default form submission
+    
+    if (isSubmitted) {
+      alert('Form has already been submitted.');
+      return;
+    }
+
+    const formData = new FormData(form);
+    
+    // Add the formID and other hidden fields
+    formData.append('formID', '241847819617873');
+    formData.append('JWTContainer', '');
+    formData.append('cardinalOrderNumber', '');
+    formData.append('jsExecutionTracker', `build-date-${Date.now()}=>init-started:${Date.now()}=>validator-called:${Date.now()}=>validator-mounted-true:${Date.now()}=>init-complete:${Date.now()}=>interval-complete:${Date.now()}`);
+    formData.append('submitSource', 'mounted');
+    formData.append('buildDate', '1721263019997');
+    formData.append('simple_spc', '241847819617873-241847819617873');
+    formData.append('event_id', `${Date.now()}_241847819617873_n6LQVi4`);
+    formData.append('timeToSubmit', '20');
+
+    submitButton.disabled = true; // Disable the submit button
+    submitButton.textContent = 'Submitting...'; // Change button text
+
+    fetch('https://submit.jotform.com/submit/241847819617873', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      alert('Nomination submitted successfully!');
+      isSubmitted = true;
+      submitButton.textContent = 'Submitted';
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      alert('Error submitting nomination. Please try again.');
+      submitButton.disabled = false;
+      submitButton.textContent = 'Submit Nomination';
+    });
+  });
+
+  // Function to check if the form has been submitted
+  window.checkFormSubmission = function() {
+    return isSubmitted;
+  };
+});
+
+function selectAward(award) {
+  document.getElementById('awardCategory').value = award;
+  // Add visual feedback
+  document.querySelectorAll('.award-option').forEach(div => {
+    div.classList.remove('selected');
+  });
+  event.target.classList.add('selected');
+}
+</script>
+
 </body>
 </html>
