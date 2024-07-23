@@ -77,6 +77,96 @@
             object-position: center bottom;
             z-index: 1;
         }
+        .testimonial-carousel {
+            padding: 3rem 0;
+            margin-top: -189px;
+            z-index: 1;
+            position: absolute;
+        }
+
+        .carousel-container {
+            margin: 0 auto;
+            padding: 0 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-container:active {
+            cursor: grabbing;
+        }
+
+        .carousel-track {
+            display: flex;
+            animation: scroll 120s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .testimonial-card {
+            background-color: #111111;
+            border: 1px solid #2a2a2a;
+            padding: 16px;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-right: 1.5rem;
+            width: 300px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .testimonial-content {
+            flex-grow: 1;
+        }
+
+        .testimonial-text {
+            color: #c7cbd1;
+            text-align: center;
+            font-size: 15px;
+            line-height: 1.4;
+            padding: 4px;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            line-clamp: 6;  /* Add this line */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .testimonial-footer {
+            margin-top: .5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            margin-bottom: .5rem;
+        }
+
+        .star-rating svg {
+            color: #ffc259;
+            margin: 0;
+        }
+
+        .testimonial-name {
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            text-align: center;
+            margin: 0;
+        }
         .container {
             max-width: 1296px;
             margin: 0 auto;
@@ -88,6 +178,7 @@
             max-width: 1296px;
             margin: 0 auto;
             padding: 20px;
+            margin-top: 132px;
         }
 
         .video-container {
@@ -336,6 +427,13 @@
         </div>
         <img src="https://newsabalita.wordpress.com/wp-content/uploads/2024/07/leader_bldg.png" alt="Leader Building" class="bottom-image">
     </section>
+    <div class="testimonial-carousel">
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <!-- Testimonial cards will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
     <section class="video-section">
         <div class="video-container">
             <div class="video-wrapper">
@@ -413,7 +511,84 @@
             </div>
         </form>
     </div>
+    <script>
+        const testimonials = [
+    {
+        id: 1,
+        name: 'Gabriella Molenaar',
+        text: 'Great team and customer service. We have been dealing with Leader for several years and never disappoint. Give great helpful advice and quick and efficient service and delivery of items.'
+      },
+      {
+        id: 2,
+        name: 'James Thompson',
+        text: 'Fantastic experience! The staff were incredibly knowledgeable and helped me find exactly what I needed. Highly recommend their services!'
+      },
+      {
+        id: 3,
+        name: 'Samantha Lee',
+        text: 'I was impressed with the level of professionalism and the quality of products. They went above and beyond to ensure my satisfaction!'
+      },
+      {
+        id: 4,
+        name: 'Michael Johnson',
+        text: 'Excellent service from start to finish. The team was responsive and attentive to my needs. I will definitely be returning for future purchases.'
+      },
+      {
+        id: 5,
+        name: 'Emily Carter',
+        text: 'The customer service is top-notch! They truly care about their customers and provide tailored solutions that work for me. Highly recommend!'
+      },
+      {
+        id: 6,
+        name: 'David Smith',
+        text: 'I had an amazing experience with Leader! They were quick to respond to my inquiries and delivered my order faster than I expected. Thank you!'
+      },
+      {
+        id: 7,
+        name: 'Olivia Brown',
+        text: 'The team at Leader is simply the best! They have always provided us with quality products and exceptional support. I can’t imagine working with anyone else!'
+      }
+];
 
+        function createStarIcon() {
+            return `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                </svg>
+            `;
+        }
+
+        function createTestimonialCard(name, text) {
+            return `
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">${text}</p>
+                    </div>
+                    <div class="testimonial-footer">
+                        <div class="star-rating">
+                            ${createStarIcon()}
+                            ${createStarIcon()}
+                            ${createStarIcon()}
+                            ${createStarIcon()}
+                            ${createStarIcon()}
+                        </div>
+                        <p class="testimonial-name">${name}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initCarousel() {
+            const carouselTrack = document.querySelector('.carousel-track');
+            const doubledTestimonials = testimonials.concat(testimonials);
+            
+            doubledTestimonials.forEach((testimonial) => {
+                carouselTrack.innerHTML += createTestimonialCard(testimonial.name, testimonial.text);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initCarousel);
+    </script>
     <script>
         const awardOptions = document.querySelectorAll('.award-option');
         let selectedAward = null;
