@@ -218,6 +218,10 @@
             margin-right: auto;
             text-align: center;
         }
+
+        .hidden {
+            display: none;
+        }
         .award-options {
             display: flex;
             flex-wrap: nowrap;
@@ -298,9 +302,10 @@
         }
         label {
             display: block;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 500;
             margin-bottom: 12px;
+            line-height: 22px;
         }
         label .required {
             color: #ff1333;
@@ -309,9 +314,9 @@
             font-family: 'Work Sans', sans-serif;
             width: 100%;
             padding: 12px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 400;
-            line-height: 24px;
+            line-height: 22px;
             background-color: #111111;
             border: 1px solid #2a2a2a;
             color: white;
@@ -319,13 +324,14 @@
             box-sizing: border-box;
         }
         textarea {
-            resize: none;
+            resize: vertical;
             height: auto;
             overflow-y: auto;
+            font-size: 15px;
         }
 
         #companyDescription {
-            min-height: 154px;
+            min-height: 155px;
         }
 
         input:focus, textarea:focus {
@@ -352,6 +358,11 @@
         .submit-btn:hover {
             background-color: #0e4d94;
         }
+
+        .error {
+            border: 1px solid red !important;
+        }
+        
         @media (max-width: 1296px) {
         .testimonial-carousel {
         margin-top: -150px; /* Adjusted for smaller screens */
@@ -448,7 +459,7 @@
         </div>
     </section>
     <div class="container">
-        <h1 class="centered-max-width">Please select which award you would like to submit a nomination for</h1>
+        <h1 id="please-select-which-award-you-would-like-to-submit-a-nomination-for" class="centered-max-width">Please select which award you would like to submit a nomination for</h1>
         
         <div class="award-options">
             <div class="award-option" data-award="Creativity" onclick="selectAward('Creativity', this)">Creativity</div>
@@ -456,58 +467,125 @@
             <div class="award-option" data-award="Software" onclick="selectAward('Software', this)">Software</div>
             <div class="award-option" data-award="Specialist" onclick="selectAward('Specialist', this)">Specialist</div>
         </div>
+
+        <!-- New sections for award description and conditional fields -->
+        <div id="award-description" class="hidden" style="text-align: center; line-height: 24px; color: #ffd48a; margin-bottom: 56px"></div>
         
-        <form id="nominationForm" class="form-container">
+        <div id="conditional-fields" class="hidden">
+        <p><span style="color:white"><strong>There is a 400-word limit per question.</strong></span> All formatting needs to be removed from your submission if copy-pasting. This includes: tabs, bold text, bullet points or multiple line breaks between paragraphs.</p>
+        <div id="creativity-fields" class="award-specific creativity-field hidden">
+            <div class="form-field">
+              <label for="creativity-credentials">Outline the key credentials (unique market approach, fresh engagement ideas etc) which makes this organisation a distributor of creativity and innovation <span class="required">*</span></label>
+              <textarea id="creativity-credentials" name="q79_outlineThe79" required></textarea>
+            </div>
+            <div class="form-field">
+              <label for="creativity-example">Provide an example of how this organisation successfully delivered an outside-of-the-box initiative to enhance a vendor's value proposition and spearhead partner innovation (sales, marketing, technical etc) <span class="required">*</span></label>
+              <textarea id="creativity-example" name="q80_provideAn" required></textarea>
+            </div>
+            <div class="form-field">
+              <label for="creativity-benefits">Demonstrate the ongoing channel benefits of this organisation's unique approach to channel engagement (enhanced expertise, channel growth etc) <span class="required">*</span></label>
+              <textarea id="creativity-benefits" name="q81_demonstrateThe" required></textarea>
+            </div>
+        </div>
+          
+        <div id="hardware-fields" class="award-specific hardware-field hidden">
+            <div class="form-field">
+              <label for="hardware-credentials">Outline the key credentials (enablement, support services etc) which makes this organisation a market-leading hardware distributor <span class="required">*</span></label>
+              <textarea id="hardware-credentials" name="q24_outlineThe" required></textarea>
+            </div>
+            <div class="form-field">
+              <label for="hardware-example">Provide an example of how this organisation supported the ecosystem in the delivery of innovative hardware-based solutions and services (unique growth initiatives, deep levels of expertise etc) <span class="required">*</span></label>
+              <textarea id="hardware-example" name="q25_typeA25" required></textarea>
+            </div>
+            <div class="form-field">
+              <label for="hardware-benefits">Demonstrate the ongoing benefits of this organisation's transformative approach to hardware in relation to channel growth and go-to-market innovation (increased channel revenue / profit, enhanced expertise in sales / technical /marketing etc) <span class="required">*</span></label>
+              <textarea id="hardware-benefits" name="q26_typeA26" required></textarea>
+            </div>
+        </div>
+        <div id="software-fields" class="award-specific software-field hidden">
+            <div class="form-field">
+              <label for="software-credentials">Outline the key credentials (enablement, support services etc) which makes this organisation a market-leading software distributor <span class="required">*</span></label>
+              <textarea id="software-credentials" name="q82_outlineThe82" required></textarea>
+            </div>
+            <div class="form-field">
+              <label for="software-example">Provide an example of how this organisation supported the ecosystem in the delivery of innovative software-based solutions and services (unique growth initiatives, deep levels of expertise etc) <span class="required">*</span></label>
+              <textarea id="software-example" name="q83_provideAn83" required></textarea>
+            </div>
+            <div class="form-field">
+              <label for="software-benefits">Demonstrate the ongoing benefits of this organisation's transformative approach to software in relation to channel growth and go-to-market innovation (increased channel revenue / profit, enhanced expertise in sales / technical / marketing etc) <span class="required">*</span></label>
+              <textarea id="software-benefits" name="q84_demonstrateThe84" required></textarea>
+            </div>
+        </div>
+          
+        <div id="specialist-fields" class="award-specific specialist-field hidden">
+            <div class="form-field">
+              <label for="specialist-credentials">Outline the key credentials (enablement, support services etc) which makes this organisation a market-leading specialist distributor <span class="required">*</span></label>
+              <textarea id="specialist-credentials" name="q85_outlineThe85" required></textarea>
+            </div>
+            <div class="form-field">
+              <label for="specialist-example">Provide an example of how this organisation supported the ecosystem in the delivery of innovative specialist solutions and services (unique growth initiatives, deep levels of expertise etc) <span class="required">*</span></label>
+              <textarea id="specialist-example" name="q86_provideAn86" required></textarea>
+            </div>
+            <div class="form-field">
+              <label for="specialist-benefits">Demonstrate the ongoing benefits of this organisation's transformative approach to specialist technologies in relation to channel growth and go-to-market innovation (increased channel revenue / profit, enhanced expertise in sales / technical / marketing etc) <span class="required">*</span></label>
+              <textarea id="specialist-benefits" name="q87_demonstrateThe87" required></textarea>
+            </div>
+        </div>
+        
+        <form id="nominationForm" class="form-container" action="https://submit.jotform.com/submit/242058757337868" method="post" name="form_242058757337868" accept-charset="utf-8">
             <input type="hidden" name="q27_pleaseSelect" id="awardCategory">
-                <div class="form-column">
-                    <div class="form-row">
-                        <div class="form-field">
-                            <label for="nominatorFirstName">Nominator Name <span class="required">*</span></label>
-                            <input type="text" id="nominatorFirstName" name="q3_nominatorName[first]" required placeholder="First name">
-                        </div>
-                        <div class="form-field">
-                            <label for="nominatorLastName" style="visibility: hidden;">Last Name</label>
-                            <input type="text" id="nominatorLastName" name="q3_nominatorName[last]" required placeholder="Last name">
-                        </div>
+            <input type="hidden" name="formID" value="242058757337868">
+            <input type="hidden" id="JWTContainer" value="">
+            <input type="hidden" id="cardinalOrderNumber" value="">
+            <div class="form-column">
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="nominatorFirstName">Nominator Name <span class="required">*</span></label>
+                        <input type="text" id="nominatorFirstName" name="q3_nominatorName[first]" required placeholder="First name">
                     </div>
                     <div class="form-field">
-                        <label for="email">Email <span class="required">*</span></label>
-                        <input type="email" id="email" name="q5_email" required placeholder="example@example.com">
-                    </div>
-                    <div class="form-field">
-                        <label for="companyName">Company Name <span class="required">*</span></label>
-                        <input type="text" id="companyName" name="q6_companyName" required>
-                    </div>
-                    <div class="form-field">
-                        <label for="jobTitle">Job Title <span class="required">*</span></label>
-                        <input type="text" id="jobTitle" name="q7_jobTitle" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-field">
-                            <label for="phoneArea">Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="phoneArea" name="q16_phoneNumber[area]" required placeholder="Area Code">
-                        </div>
-                        <div class="form-field">
-                            <label for="phoneNumber" style="visibility: hidden;">Phone Number</label>
-                            <input type="tel" id="phoneNumber" name="q16_phoneNumber[phone]" required placeholder="Phone Number">
-                        </div>
+                        <label for="nominatorLastName" style="visibility: hidden;">Last Name</label>
+                        <input type="text" id="nominatorLastName" name="q3_nominatorName[last]" required placeholder="Last name">
                     </div>
                 </div>
-                <div class="form-column">
-                    <div class="form-field">
-                        <label for="nomineeCompany">Nominee Company <span class="required">*</span></label>
-                        <input type="text" id="nomineeCompany" name="q8_nomineeCompany" value="Leader Computers" readonly class="locked">
-                    </div>
-                    <div class="form-field">
-                        <label for="companyDescription">Company Description <span class="required">*</span></label>
-                        <textarea id="companyDescription" name="q15_companyDescription" readonly class="locked">Leader is Australia's favourite IT Distributor (ARN Channel Choice Distributor of Year in 2019 and 2020). Leader is Proudly 100% Australian Owned and has purpose to help resellers grow and be profitable. Leader is truly national IT value-added ICT distributor located in 5 major states Australia-wide.</textarea>
-                    </div>
-                    <div class="form-field">
-                        <label for="hqLocation">HQ Location <span class="required">*</span></label>
-                        <input type="text" id="hqLocation" name="q13_hqLocation" value="South Australia" readonly class="locked">
-                    </div>
-                    <button type="submit" class="submit-btn" id="submitButton">Submit Nomination</button>
+                <div class="form-field">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="q5_email" required placeholder="example@example.com">
                 </div>
+                <div class="form-field">
+                    <label for="companyName">Company Name <span class="required">*</span></label>
+                    <input type="text" id="companyName" name="q6_companyName" required>
+                </div>
+                <div class="form-field">
+                    <label for="jobTitle">Job Title <span class="required">*</span></label>
+                    <input type="text" id="jobTitle" name="q7_jobTitle" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="phoneArea">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phoneArea" name="q16_phoneNumber[area]" required placeholder="Area Code">
+                    </div>
+                    <div class="form-field">
+                        <label for="phoneNumber" style="visibility: hidden;">Phone Number</label>
+                        <input type="tel" id="phoneNumber" name="q16_phoneNumber[phone]" required placeholder="Phone Number">
+                    </div>
+                </div>
+            </div>
+            <div class="form-column">
+                <div class="form-field">
+                    <label for="nomineeCompany">Nominee Company <span class="required">*</span></label>
+                    <input type="text" id="nomineeCompany" name="q8_nomineeCompany" value="Leader Computers" readonly class="locked">
+                </div>
+                <div class="form-field">
+                    <label for="companyDescription">Company Description <span class="required">*</span></label>
+                    <textarea id="companyDescription" name="q15_companyDescription" readonly class="locked">Leader is Australia's favourite IT Distributor (ARN Channel Choice Distributor of Year in 2019 and 2020). Leader is Proudly 100% Australian Owned and has purpose to help resellers grow and be profitable. Leader is truly national IT value-added ICT distributor located in 5 major states Australia-wide.</textarea>
+                </div>
+                <div class="form-field">
+                    <label for="hqLocation">HQ Location <span class="required">*</span></label>
+                    <input type="text" id="hqLocation" name="q13_hqLocation" value="South Australia" readonly class="locked">
+                </div>
+                <button type="submit" class="submit-btn" id="input_2">Submit Nomination</button>
+            </div>
         </form>
     </div>
 
@@ -601,30 +679,92 @@
 
         document.addEventListener('DOMContentLoaded', initCarousel);
     </script>
-    <script>
-        function selectAward(award, element) {
-            document.getElementById('awardCategory').value = award;
-            // Add visual feedback
-            document.querySelectorAll('.award-option').forEach(div => {
-                div.classList.remove('selected');
-            });
-            element.classList.add('selected');
-            console.log('Selected award:', award); // Add this line for debugging
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('nominationForm');
-    const submitButton = document.getElementById('submitButton');
-    let isSubmitted = false;
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent the default form submission
+<script>
+    function selectAward(award, element) {
+        // Remove 'selected' class from all options
+        document.querySelectorAll('.award-option').forEach(option => {
+            option.classList.remove('selected');
+        });
         
-        if (isSubmitted) {
-        alert('Form has already been submitted.');
-        return;
+        // Add 'selected' class to clicked option
+        element.classList.add('selected');
+        
+        // Update hidden input
+        document.getElementById('awardCategory').value = award;
+        
+        // Show award description
+        const descriptionElement = document.getElementById('award-description');
+        descriptionElement.innerHTML = getAwardDescription(award);
+        descriptionElement.classList.remove('hidden');
+        
+        // Show conditional fields
+        const conditionalFields = document.getElementById('conditional-fields');
+        conditionalFields.classList.remove('hidden');
+        
+        // Disable all award-specific fields
+        document.querySelectorAll('.award-specific textarea').forEach(field => {
+            field.disabled = true;
+        });
+
+        // Hide all award-specific fields
+        document.querySelectorAll('.award-specific').forEach(field => {
+            field.classList.add('hidden');
+        });
+        
+        // Show and enable fields for the selected award
+        const selectedFields = document.getElementById(`${award.toLowerCase()}-fields`);
+        selectedFields.classList.remove('hidden');
+        selectedFields.querySelectorAll('textarea').forEach(field => {
+            field.disabled = false;
+        });
         }
-  });
-});
-</script>
+
+        function getAwardDescription(award) {
+        const descriptions = {
+            'Creativity': 'This award recognises distributors delivering out-of-the-box initiatives to enhance vendor value propositions and spearhead partner innovation efforts, aligned to the collective goal of driving ecosystem growth. This distributor is a standout is building unique and unrivalled programs to strengthen go-to-market partner strategies, enhancing sales, marketing and technical efforts through an innovative approach to channel engagement.',
+            'Hardware': 'This award recognises distributors driving hardware innovation and growth via an ecosystem of partners and vendors, spanning a varied product range of next-generation servers, storage, devices etc. This distributor is a consistent and reliable performer in supporting the delivery of hardware solutions through market-leading partner enablement, enhanced service support and unique growth initiatives.',
+            'Software': 'This award recognises distributors pioneering software ecosystem excellence through a committed and innovative approach to partnering, spanning a varied portfolio of applications, CRM, ERP and database technologies. This distributor is a standout in spearheading software growth through market-leading partner enablement, enhanced service support and unique growth initiatives.',
+            'Specialist': 'This award recognises distributors spearheading the innovative deployment of established and emerging specialist technologies via a core network of vendors and partners, spanning a varied product range of unified communications, collaboration, IoT, 5G, storage, printing etc. This distributor is a consistent and reliable performer in supporting the delivery of specialist solutions through market-leading partner enablement, enhanced service support and unique growth initiatives.'
+        };
+        return descriptions[award] || '';
+        }
+    </script>
+
+    <script src="https://js.jotform.com/JotForm.js"></script>
+    <script>
+      JotForm.init(function(){
+        // You can add any custom JavaScript here
+      });
+    
+      document.getElementById('nominationForm').onsubmit = function(event) {
+        event.preventDefault();
+        if (JotForm.validateForm()) {
+          JotForm.submit(this);
+        }
+      };
+    </script>
+    
+    <script>
+        function validateForm() {
+        let isValid = true;
+        document.querySelectorAll('input[required], textarea[required]:not(:disabled)').forEach(field => {
+            if (!field.value.trim()) {
+            isValid = false;
+            field.classList.add('error');
+            } else {
+            field.classList.remove('error');
+            }
+        });
+        return isValid;
+        }
+
+        document.getElementById('nominationForm').addEventListener('submit', function(event) {
+        if (!validateForm()) {
+            event.preventDefault();
+            alert('Please fill in all required fields.');
+        }
+        });
+    </script>
 </body>
 </html>
