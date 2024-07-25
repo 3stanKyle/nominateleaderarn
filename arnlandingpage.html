@@ -79,7 +79,7 @@
         }
         .testimonial-carousel {
             padding: 3rem 0;
-            margin-top: -110px;
+            margin-top: -189px;
             z-index: 1;
             position: relative;
             width: 100%;
@@ -431,9 +431,7 @@
     </section>
     <div class="testimonial-carousel">
         <div class="carousel-container">
-            <div class="carousel-track">
-                <!-- Testimonial cards will be dynamically inserted here -->
-            </div>
+            <div class="carousel-track"></div>
         </div>
     </div>
     <section class="video-section">
@@ -625,66 +623,8 @@
         alert('Form has already been submitted.');
         return;
         }
-
-    const formData = new FormData(form);
-    
-    // Add the formID and other hidden fields
-    formData.append('formID', '241847819617873');
-    formData.append('JWTContainer', '');
-    formData.append('cardinalOrderNumber', '');
-    formData.append('jsExecutionTracker', `build-date-${Date.now()}=>init-started:${Date.now()}=>validator-called:${Date.now()}=>validator-mounted-true:${Date.now()}=>init-complete:${Date.now()}=>interval-complete:${Date.now()}`);
-    formData.append('submitSource', 'mounted');
-    formData.append('buildDate', '1721263019997');
-    formData.append('simple_spc', '241847819617873-241847819617873');
-    formData.append('event_id', `${Date.now()}_241847819617873_n6LQVi4`);
-    formData.append('timeToSubmit', '20');
-
-    submitButton.disabled = true; // Disable the submit button
-    submitButton.textContent = 'Submitting...'; // Change button text
-
-    // Log form data for debugging
-    for (let [key, value] of formData.entries()) { 
-      console.log(key, value);
-    }
-
-    fetch('https://submit.jotform.com/submit/241847819617873', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      // Check if the response is JSON
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.indexOf("application/json") !== -1) {
-        return response.json();
-      } else {
-        // If it's not JSON, it's probably HTML (when running locally)
-        console.log("Response is not JSON. This is expected when running locally.");
-        return { success: true, message: "Local submission simulation" };
-      }
-    })
-    .then(data => {
-      console.log('Success:', data);
-      alert('Nomination submitted successfully!');
-      isSubmitted = true;
-      submitButton.textContent = 'Submitted';
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      alert('Error submitting nomination. Please try again.');
-      submitButton.disabled = false;
-      submitButton.textContent = 'Submit Nomination';
-    });
   });
-
-  // Function to check if the form has been submitted
-  window.checkFormSubmission = function() {
-    return isSubmitted;
-  };
 });
 </script>
-
 </body>
 </html>
