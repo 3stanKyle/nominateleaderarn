@@ -56,12 +56,13 @@
         .nominate-button {
             font-family: 'Work Sans', sans-serif;
             font-weight: 600;
-            background: linear-gradient(to right, #1d4c7f, #102133);
-            color: #ffe8ae;
+            background: linear-gradient(to right, #ffe8b0, #b27f29, #ffe8b0);
+            color: white;
+            text-shadow: 1px 1px 4px #835d1b;
             padding: 15px 30px;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             font-size: 24px;
-            border:2px solid #ffe8ae;
+            border: none;
             border-radius: 9999px; /* Maxed out round corners */
             cursor: pointer;
             transition: all 0.3s ease;
@@ -360,9 +361,9 @@
         }
 
         .error {
-            border: 1px solid red !important;
+            border: 2px solid red !important;
         }
-        
+
         @media (max-width: 1296px) {
         .testimonial-carousel {
         margin-top: -150px; /* Adjusted for smaller screens */
@@ -458,7 +459,7 @@
             <p>Thank you in advance for your support.</p>
         </div>
     </section>
-    <div class="container">
+    <div id="award-selection" class="container">
         <h1 id="please-select-which-award-you-would-like-to-submit-a-nomination-for" class="centered-max-width">Please select which award you would like to submit a nomination for</h1>
         
         <div class="award-options">
@@ -471,7 +472,12 @@
         <!-- New sections for award description and conditional fields -->
         <div id="award-description" class="hidden" style="text-align: center; line-height: 24px; color: #ffd48a; margin-bottom: 56px"></div>
         
-        <div id="conditional-fields" class="hidden">
+        <form id="nominationForm" class="form-container" action="https://submit.jotform.com/submit/242058757337868" method="post" name="form_242058757337868" accept-charset="utf-8">
+            <input type="hidden" name="q27_pleaseSelect" id="awardCategory">
+            <input type="hidden" name="formID" value="242058757337868">
+            <input type="hidden" id="JWTContainer" value="">
+            <input type="hidden" id="cardinalOrderNumber" value="">
+            <div id="conditional-fields" class="hidden">
         <p><span style="color:white"><strong>There is a 400-word limit per question.</strong></span> All formatting needs to be removed from your submission if copy-pasting. This includes: tabs, bold text, bullet points or multiple line breaks between paragraphs.</p>
         <div id="creativity-fields" class="award-specific creativity-field hidden">
             <div class="form-field">
@@ -531,12 +537,7 @@
               <textarea id="specialist-benefits" name="q87_demonstrateThe87" required></textarea>
             </div>
         </div>
-        
-        <form id="nominationForm" class="form-container" action="https://submit.jotform.com/submit/242058757337868" method="post" name="form_242058757337868" accept-charset="utf-8">
-            <input type="hidden" name="q27_pleaseSelect" id="awardCategory">
-            <input type="hidden" name="formID" value="242058757337868">
-            <input type="hidden" id="JWTContainer" value="">
-            <input type="hidden" id="cardinalOrderNumber" value="">
+
             <div class="form-column">
                 <div class="form-row">
                     <div class="form-field">
@@ -680,7 +681,20 @@
         document.addEventListener('DOMContentLoaded', initCarousel);
     </script>
 
+<script src="https://js.jotform.com/JotForm.js"></script>
 <script>
+    function scrollToSection(elementId) {
+        const element = document.getElementById(elementId);
+        const headerOffset = 60; // Adjust this value as needed
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
+    }
+    
     function selectAward(award, element) {
         // Remove 'selected' class from all options
         document.querySelectorAll('.award-option').forEach(option => {
@@ -702,25 +716,23 @@
         const conditionalFields = document.getElementById('conditional-fields');
         conditionalFields.classList.remove('hidden');
         
-        // Disable all award-specific fields
-        document.querySelectorAll('.award-specific textarea').forEach(field => {
-            field.disabled = true;
-        });
-
-        // Hide all award-specific fields
+        // Disable and hide all award-specific fields
         document.querySelectorAll('.award-specific').forEach(field => {
             field.classList.add('hidden');
+            field.querySelectorAll('textarea').forEach(textarea => {
+                textarea.disabled = true;
+            });
         });
         
         // Show and enable fields for the selected award
         const selectedFields = document.getElementById(`${award.toLowerCase()}-fields`);
         selectedFields.classList.remove('hidden');
-        selectedFields.querySelectorAll('textarea').forEach(field => {
-            field.disabled = false;
+        selectedFields.querySelectorAll('textarea').forEach(textarea => {
+            textarea.disabled = false;
         });
-        }
+    }
 
-        function getAwardDescription(award) {
+    function getAwardDescription(award) {
         const descriptions = {
             'Creativity': 'This award recognises distributors delivering out-of-the-box initiatives to enhance vendor value propositions and spearhead partner innovation efforts, aligned to the collective goal of driving ecosystem growth. This distributor is a standout is building unique and unrivalled programs to strengthen go-to-market partner strategies, enhancing sales, marketing and technical efforts through an innovative approach to channel engagement.',
             'Hardware': 'This award recognises distributors driving hardware innovation and growth via an ecosystem of partners and vendors, spanning a varied product range of next-generation servers, storage, devices etc. This distributor is a consistent and reliable performer in supporting the delivery of hardware solutions through market-leading partner enablement, enhanced service support and unique growth initiatives.',
@@ -728,43 +740,55 @@
             'Specialist': 'This award recognises distributors spearheading the innovative deployment of established and emerging specialist technologies via a core network of vendors and partners, spanning a varied product range of unified communications, collaboration, IoT, 5G, storage, printing etc. This distributor is a consistent and reliable performer in supporting the delivery of specialist solutions through market-leading partner enablement, enhanced service support and unique growth initiatives.'
         };
         return descriptions[award] || '';
-        }
-    </script>
+    }
 
-    <script src="https://js.jotform.com/JotForm.js"></script>
-    <script>
-      JotForm.init(function(){
-        // You can add any custom JavaScript here
-      });
-    
-      document.getElementById('nominationForm').onsubmit = function(event) {
-        event.preventDefault();
-        if (JotForm.validateForm()) {
-          JotForm.submit(this);
-        }
-      };
-    </script>
-    
-    <script>
-        function validateForm() {
+    function validateForm() {
         let isValid = true;
-        document.querySelectorAll('input[required], textarea[required]:not(:disabled)').forEach(field => {
+        const selectedAward = document.getElementById('awardCategory').value;
+        const requiredFields = document.querySelectorAll(`#${selectedAward.toLowerCase()}-fields textarea[required], input[required]`);
+        
+        requiredFields.forEach(field => {
             if (!field.value.trim()) {
-            isValid = false;
-            field.classList.add('error');
+                isValid = false;
+                field.classList.add('error');
             } else {
-            field.classList.remove('error');
+                field.classList.remove('error');
             }
         });
+
         return isValid;
-        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        JotForm.init(function(){
+            // You can add any custom JavaScript here
+        });
 
         document.getElementById('nominationForm').addEventListener('submit', function(event) {
-        if (!validateForm()) {
             event.preventDefault();
-            alert('Please fill in all required fields.');
-        }
+            if (validateForm()) {
+                // Enable all fields before submission to ensure they're included
+                document.querySelectorAll('textarea, input').forEach(field => {
+                    field.disabled = false;
+                });
+                JotForm.submit(this);
+            } else {
+                alert('Please fill in all required fields for the selected award category.');
+            }
         });
-    </script>
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    // ... your existing DOMContentLoaded code ...
+
+    // Add this new code for the button click event
+    document.getElementById('nominateButton').addEventListener('click', function(e) {
+        e.preventDefault();
+        const awardSection = document.getElementById('award-selection');
+        awardSection.scrollIntoView({ behavior: 'smooth' });
+    });
+});
+
+</script>
 </body>
 </html>
